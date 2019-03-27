@@ -7,9 +7,8 @@ function set_device(dev_name::T) where T<:AbstractString
 end
 
 function load_worker_code(id)
-    #below was suggested by a julia issue but seems unnecessary now
-    #Distributed.remotecall_eval(Main, id, :(using Pkg))
-    #Distributed.remotecall_eval(Main, id, :(Pkg.activate(".")))
+    Distributed.remotecall_eval(Main, id, :(using Pkg))
+    Distributed.remotecall_eval(Main, id, :(Pkg.activate(".")))
     Distributed.remotecall_eval(Main, id, :(using ImagineInterface))
     Distributed.remotecall_eval(Main, id, :(using ImagineWorker))
 end
